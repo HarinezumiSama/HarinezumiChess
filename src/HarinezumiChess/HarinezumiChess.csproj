@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4558239C-ACFF-4961-B166-597C714A325A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HarinezumiChess</RootNamespace>
+    <AssemblyName>HarinezumiChess</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\AnyCpu\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\AnyCpu\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Omnifactotum, Version=0.3.0.119, Culture=neutral, PublicKeyToken=463364b83539fcba, processorArchitecture=MSIL">
+      <HintPath>..\packages\Omnifactotum.0.3.0.119\lib\net40-Client\Omnifactotum.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\.common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\.common\Version\Generated.GlobalVersion.cs">
+      <Link>Properties\Generated.GlobalVersion.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets'))" />
+  </Target>
+  <Target Name="UpdateGlobalVersion">
+    <PropertyGroup>
+      <BaseVersionFile>$(ProjectDir)\..\.common\Version\BaseVersion.txt</BaseVersionFile>
+      <RevisionFile>$(ProjectDir)\..\.common\Version\Generated.Revision.txt</RevisionFile>
+      <RevisionIdFile>$(ProjectDir)\..\.common\Version\Generated.RevisionId.txt</RevisionIdFile>
+      <BranchNameFile>$(ProjectDir)\..\.common\Version\Generated.BranchName.txt</BranchNameFile>
+    </PropertyGroup>
+    <Message Importance="high" Text="* Reading base version from '$(BaseVersionFile)'..." />
+    <ReadLinesFromFile File="$(BaseVersionFile)">
+      <Output TaskParameter="Lines" PropertyName="BaseVersion" />
+    </ReadLinesFromFile>
+    <Message Importance="high" Text="* Base version: '$(BaseVersion)'" />
+    <Exec Command="&quot;$(ProjectDir)\..\.common\Scripts\hg.cmd&quot; identify --num &gt;&quot;$(RevisionFile)&quot;" />
+    <Exec Command="&quot;$(ProjectDir)\..\.common\Scripts\hg.cmd&quot; identify --id &gt;&quot;$(RevisionIdFile)&quot;" />
+    <Exec Command="&quot;$(ProjectDir)\..\.common\Scripts\hg.cmd&quot; identify --branch &gt;&quot;$(BranchNameFile)&quot;" />
+    <Message Importance="high" Text="* Reading HG revision number from '$(RevisionFile)'..." />
+    <ReadLinesFromFile File="$(RevisionFile)">
+      <Output TaskParameter="Lines" PropertyName="RevisionRaw" />
+    </ReadLinesFromFile>
+    <RegexReplace Input="$(RevisionRaw)" Expression="\+" Replacement="" Count="1">
+      <Output PropertyName="Revision" TaskParameter="Output" />
+    </RegexReplace>
+    <ReadLinesFromFile File="$(BranchNameFile)">
+      <Output TaskParameter="Lines" PropertyName="BranchName" />
+    </ReadLinesFromFile>
+    <Message Importance="high" Text="* Revision number: '$(Revision)' (raw '$(RevisionRaw)'). Branch: '$(BranchName)'" />
+    <Message Importance="high" Text="* Reading HG revision ID from '$(RevisionIdFile)'..." />
+    <ReadLinesFromFile File="$(RevisionIdFile)">
+      <Output TaskParameter="Lines" PropertyName="RevisionId" />
+    </ReadLinesFromFile>
+    <Message Importance="high" Text="* Revision ID: '$(RevisionId)'" />
+    <PropertyGroup>
+      <GlobalVersion>$(BaseVersion).$(Revision).0</GlobalVersion>
+      <UncommitedChange />
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(RevisionRaw)' != '$(Revision)' ">
+      <UncommitedChange> [UNCOMMITED]</UncommitedChange>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssemblyVersion Include="global::System.Reflection.AssemblyVersion">
+        <_Parameter1>$(GlobalVersion)</_Parameter1>
+      </AssemblyVersion>
+      <AssemblyFileVersion Include="global::System.Reflection.AssemblyFileVersion">
+        <_Parameter1>$(GlobalVersion)</_Parameter1>
+      </AssemblyFileVersion>
+      <AssemblyInformationalVersion Include="global::System.Reflection.AssemblyInformationalVersion">
+        <_Parameter1>$(GlobalVersion)$(UncommitedChange) ($(BranchName) :: $(Configuration) :: rev. $(RevisionId))</_Parameter1>
+      </AssemblyInformationalVersion>
+    </ItemGroup>
+    <WriteCodeFragment Language="C#" OutputFile="$(ProjectDir)\..\.common\Version\Generated.GlobalVersion.cs" AssemblyAttributes="@(AssemblyVersion);@(AssemblyFileVersion);@(AssemblyInformationalVersion)" />
+  </Target>
+  <PropertyGroup>
+    <CompileDependsOn>UpdateGlobalVersion;$(CompileDependsOn)</CompileDependsOn>
+    <BuildDependsOn>UpdateGlobalVersion;$(BuildDependsOn)</BuildDependsOn>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
