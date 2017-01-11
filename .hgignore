@@ -1,6 +1,8 @@
 glob:bin/*
+glob:bin.tests/*
 glob:obj/*
 glob:*/bin/*
+glob:*/bin.tests/*
 glob:*/obj/*
 glob:*/packages/*
 glob:*/.vs/*

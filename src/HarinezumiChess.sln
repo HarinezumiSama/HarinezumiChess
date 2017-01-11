@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarinezumiChess", "HarinezumiChess\HarinezumiChess.csproj", "{4558239C-ACFF-4961-B166-597C714A325A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarinezumiChess.Tests", "HarinezumiChess.Tests\HarinezumiChess.Tests.csproj", "{F00CDA02-E660-4497-8012-EE58541983FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4558239C-ACFF-4961-B166-597C714A325A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4558239C-ACFF-4961-B166-597C714A325A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4558239C-ACFF-4961-B166-597C714A325A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00CDA02-E660-4497-8012-EE58541983FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00CDA02-E660-4497-8012-EE58541983FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00CDA02-E660-4497-8012-EE58541983FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00CDA02-E660-4497-8012-EE58541983FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
