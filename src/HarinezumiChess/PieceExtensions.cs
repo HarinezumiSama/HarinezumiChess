@@ -20,29 +20,18 @@ namespace HarinezumiChess
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static GameSide? GetSide(this Piece piece)
-        {
-            return piece == Piece.None
+            => piece == Piece.None
                 ? default(GameSide?)
                 : (GameSide)(((int)piece & PieceConstants.SideMask) >> PieceConstants.BlackSideShift);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PieceType GetPieceType(this Piece piece)
-        {
-            return (PieceType)((int)piece & PieceConstants.TypeMask);
-        }
+        public static PieceType GetPieceType(this Piece piece) => (PieceType)((int)piece & PieceConstants.TypeMask);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Is(this Piece piece, PieceType pieceType)
-        {
-            return GetPieceType(piece) == pieceType;
-        }
+        public static bool Is(this Piece piece, PieceType pieceType) => GetPieceType(piece) == pieceType;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Is(this Piece piece, GameSide gameSide)
-        {
-            return GetSide(piece) == gameSide;
-        }
+        public static bool Is(this Piece piece, GameSide gameSide) => GetSide(piece) == gameSide;
 
         public static char GetFenChar(this Piece piece)
         {

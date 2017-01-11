@@ -8,9 +8,7 @@ namespace HarinezumiChess
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CastlingType ToCastlingType(this CastlingSide castlingSide, GameSide gameSide)
-        {
-            return unchecked((CastlingType)(((int)gameSide << 1) + castlingSide));
-        }
+            => unchecked((CastlingType)(((int)gameSide << 1) + castlingSide));
 
         #endregion
     }

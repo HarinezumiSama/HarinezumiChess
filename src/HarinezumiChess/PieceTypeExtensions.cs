@@ -44,21 +44,15 @@ namespace HarinezumiChess
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSlidingDiagonally(this PieceType pieceType)
-        {
-            return ((int)pieceType & (int)PieceTypeMask.SlidingDiagonally) == (int)PieceTypeMask.SlidingDiagonally;
-        }
+            => ((int)pieceType & (int)PieceTypeMask.SlidingDiagonally) == (int)PieceTypeMask.SlidingDiagonally;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSlidingStraight(this PieceType pieceType)
-        {
-            return ((int)pieceType & (int)PieceTypeMask.SlidingStraight) == (int)PieceTypeMask.SlidingStraight;
-        }
+            => ((int)pieceType & (int)PieceTypeMask.SlidingStraight) == (int)PieceTypeMask.SlidingStraight;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSliding(this PieceType pieceType)
-        {
-            return ((int)pieceType & (int)PieceTypeMask.Sliding) == (int)PieceTypeMask.Sliding;
-        }
+            => ((int)pieceType & (int)PieceTypeMask.Sliding) == (int)PieceTypeMask.Sliding;
 
         #endregion
     }

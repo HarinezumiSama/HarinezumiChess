@@ -128,7 +128,7 @@ namespace HarinezumiChess
                     ? char.ToUpperInvariant(promotionGroup.Value.Single()).ToPieceType()
                     : PieceType.None;
 
-                return new GameMove(Square.FromAlgebraic(@from), Square.FromAlgebraic(to), pieceType);
+                return new GameMove(Square.FromAlgebraic(from), Square.FromAlgebraic(to), pieceType);
             }
 
             throw new ArgumentException(

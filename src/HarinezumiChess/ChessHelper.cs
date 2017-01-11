@@ -128,8 +128,6 @@ namespace HarinezumiChess
 
         private const string FenRankRegexSnippet = @"[1-8KkQqRrBbNnPp]{1,8}";
 
-        private const string MoveSeparator = ", ";
-
         private static readonly Omnifactotum.ReadOnlyDictionary<Square, Square[]>
             KnightMoveSquareMap =
                 AllSquares
@@ -147,19 +145,11 @@ namespace HarinezumiChess
         #region Public Methods
 
         public static bool IsZero(this double value, double tolerance = DefaultZeroTolerance)
-        {
-            return Math.Abs(value) <= DefaultZeroTolerance;
-        }
+            => Math.Abs(value) <= DefaultZeroTolerance;
 
-        public static int ToSign(this bool value)
-        {
-            return value ? 1 : -1;
-        }
+        public static int ToSign(this bool value) => value ? 1 : -1;
 
-        public static bool IsValidFenFormat(string fen)
-        {
-            return !fen.IsNullOrEmpty() && ValidFenRegex.IsMatch(fen);
-        }
+        public static bool IsValidFenFormat(string fen) => !fen.IsNullOrEmpty() && ValidFenRegex.IsMatch(fen);
 
         public static Square[] GetOnboardSquares(Square square, IEnumerable<SquareShift> shifts)
         {
@@ -179,15 +169,10 @@ namespace HarinezumiChess
 
         #region Internal Methods
 
-        internal static Square[] GetKnightMoveSquares(Square square)
-        {
-            return KnightMoveSquareMap[square];
-        }
+        internal static Square[] GetKnightMoveSquares(Square square) => KnightMoveSquareMap[square];
 
         internal static bool TryParseInt(string value, out int result)
-        {
-            return int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result);
-        }
+            => int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result);
 
         internal static void AddRange<T>(this HashSet<T> hashSet, IEnumerable<T> collection)
         {
@@ -224,9 +209,7 @@ namespace HarinezumiChess
         #region Private Methods
 
         private static Square[] GetKnightMoveSquaresNonCached(Square square)
-        {
-            return GetOnboardSquares(square, KnightAttackOrMoveOffsets);
-        }
+            => GetOnboardSquares(square, KnightAttackOrMoveOffsets);
 
         private static Square[] GetMoveSquareArraysByRays(
             Square sourceSquare,

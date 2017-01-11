@@ -56,29 +56,17 @@ namespace HarinezumiChess.Internal
 
         #region Public Methods
 
-        public override bool Equals(object obj)
-        {
-            return obj is SquareBridgeKey && Equals((SquareBridgeKey)obj);
-        }
+        public override bool Equals(object obj) => obj is SquareBridgeKey && Equals((SquareBridgeKey)obj);
 
-        public override int GetHashCode()
-        {
-            return _hashCode;
-        }
+        public override int GetHashCode() => _hashCode;
 
-        public override string ToString()
-        {
-            return $@"{{{First}:{Second}}}";
-        }
+        public override string ToString() => $@"{{{First}:{Second}}}";
 
         #endregion
 
         #region IEquatable<SquareBridgeKey> Members
 
-        public bool Equals(SquareBridgeKey other)
-        {
-            return other.First == First && other.Second == Second;
-        }
+        public bool Equals(SquareBridgeKey other) => other.First == First && other.Second == Second;
 
         #endregion
     }

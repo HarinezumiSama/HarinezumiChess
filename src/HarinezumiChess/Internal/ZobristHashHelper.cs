@@ -915,13 +915,8 @@ namespace HarinezumiChess.Internal
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long GetEnPassantHash([CanBeNull] EnPassantCaptureInfo info, Bitboard activeSidePawns)
+        public static long GetEnPassantHash(EnPassantCaptureInfo info, Bitboard activeSidePawns)
         {
-            if (info == null)
-            {
-                return 0;
-            }
-
             var targetPieceSquare = info.TargetPieceSquare;
             var adjacentPawnsBitboard = EnPassantAdjacentPawnsBitboardMap[targetPieceSquare];
             if ((adjacentPawnsBitboard & activeSidePawns).IsNone)
@@ -936,30 +931,11 @@ namespace HarinezumiChess.Internal
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetEnPassantHash(EnPassantCaptureInfo? info, Bitboard activeSidePawns)
-        {
-            if (!info.HasValue)
-            {
-                return 0;
-            }
-
-            var targetPieceSquare = info.Value.TargetPieceSquare;
-
-            var adjacentPawnsBitboard = EnPassantAdjacentPawnsBitboardMap[targetPieceSquare];
-            if ((adjacentPawnsBitboard & activeSidePawns).IsNone)
-            {
-                return 0;
-            }
-
-            var file = targetPieceSquare.File;
-            var result = (long)Randoms[RandomsEnPassantOffset + file];
-            return result;
-        }
+            => info.HasValue ? GetEnPassantHash(info.Value, activeSidePawns) : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetTurnHash(GameSide activeSide)
-        {
-            return activeSide == GameSide.White ? (long)Randoms[RandomsTurnOffset] : 0L;
-        }
+            => activeSide == GameSide.White ? (long)Randoms[RandomsTurnOffset] : 0L;
 
         #endregion
 
@@ -983,10 +959,7 @@ namespace HarinezumiChess.Internal
             return array;
         }
 
-        private static Square GetSquare(string s)
-        {
-            return Square.FromAlgebraic(s);
-        }
+        private static Square GetSquare(string s) => Square.FromAlgebraic(s);
 
         private static Bitboard GetBitboard([NotNull] params string[] squares)
         {

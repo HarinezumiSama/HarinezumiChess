@@ -134,24 +134,15 @@ namespace HarinezumiChess
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Square(string algebraicNotation)
-        {
-            return FromAlgebraic(algebraicNotation);
-        }
+        public static implicit operator Square(string algebraicNotation) => FromAlgebraic(algebraicNotation);
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Square left, Square right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Square left, Square right) => Equals(left, right);
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Square left, Square right)
-        {
-            return !(left == right);
-        }
+        public static bool operator !=(Square left, Square right) => !(left == right);
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -171,10 +162,7 @@ namespace HarinezumiChess
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Square left, Square right)
-        {
-            return left.SquareIndex == right.SquareIndex;
-        }
+        public static bool Equals(Square left, Square right) => left.SquareIndex == right.SquareIndex;
 
         [DebuggerNonUserCode]
         public static Square FromAlgebraic(string algebraicNotation)
@@ -272,30 +260,18 @@ namespace HarinezumiChess
             return ranks.SelectMany(GenerateRank).Distinct().ToArray();
         }
 
-        public override string ToString()
-        {
-            return StringRepresentations[SquareIndex];
-        }
+        public override string ToString() => StringRepresentations[SquareIndex];
 
-        public override bool Equals(object obj)
-        {
-            return obj is Square && Equals((Square)obj);
-        }
+        public override bool Equals(object obj) => obj is Square && Equals((Square)obj);
 
-        public override int GetHashCode()
-        {
-            return SquareIndex;
-        }
+        public override int GetHashCode() => SquareIndex;
 
         #endregion
 
         #region IEquatable<Square> Members
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Square other)
-        {
-            return Equals(this, other);
-        }
+        public bool Equals(Square other) => Equals(this, other);
 
         #endregion
 
@@ -316,17 +292,11 @@ namespace HarinezumiChess
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetFileFromChar(char file)
-        {
-            return checked(char.ToLowerInvariant(file) - 'a');
-        }
+        internal static int GetFileFromChar(char file) => checked(char.ToLowerInvariant(file) - 'a');
 
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetRankFromChar(char rank)
-        {
-            return checked(rank - '1');
-        }
+        internal static int GetRankFromChar(char rank) => checked(rank - '1');
 
         #endregion
 
@@ -335,9 +305,7 @@ namespace HarinezumiChess
         [DebuggerNonUserCode]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsInvalidSquareIndex(int squareIndex)
-        {
-            return (squareIndex & ~ChessConstants.MaxSquareIndex) != 0;
-        }
+            => (squareIndex & ~ChessConstants.MaxSquareIndex) != 0;
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace HarinezumiChess
 {
+    //// ReSharper disable once UseNameofExpression - False positive
     [DebuggerDisplay("{ToString(),nq}")]
     public struct Bitboard : IEquatable<Bitboard>
     {
@@ -183,62 +184,38 @@ namespace HarinezumiChess
         #region Operators
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Bitboard left, Bitboard right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Bitboard left, Bitboard right) => Equals(left, right);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Bitboard left, Bitboard right)
-        {
-            return !(left == right);
-        }
+        public static bool operator !=(Bitboard left, Bitboard right) => !(left == right);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Bitboard(long value)
-        {
-            return new Bitboard(value);
-        }
+        public static explicit operator Bitboard(long value) => new Bitboard(value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Bitboard operator ~(Bitboard obj)
-        {
-            return new Bitboard(~obj.InternalValue);
-        }
+        public static Bitboard operator ~(Bitboard obj) => new Bitboard(~obj.InternalValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Bitboard operator &(Bitboard left, Bitboard right)
-        {
-            return new Bitboard(left.InternalValue & right.InternalValue);
-        }
+            => new Bitboard(left.InternalValue & right.InternalValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Bitboard operator |(Bitboard left, Bitboard right)
-        {
-            return new Bitboard(left.InternalValue | right.InternalValue);
-        }
+            => new Bitboard(left.InternalValue | right.InternalValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Bitboard operator ^(Bitboard left, Bitboard right)
-        {
-            return new Bitboard(left.InternalValue ^ right.InternalValue);
-        }
+            => new Bitboard(left.InternalValue ^ right.InternalValue);
 
         #endregion
 
         #region Public Methods
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Bitboard left, Bitboard right)
-        {
-            return left.InternalValue == right.InternalValue;
-        }
+        public static bool Equals(Bitboard left, Bitboard right) => left.InternalValue == right.InternalValue;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Bitboard FromSquareIndex(int squareIndex)
-        {
-            return new Bitboard(FromSquareIndexInternal(squareIndex));
-        }
+        public static Bitboard FromSquareIndex(int squareIndex) => new Bitboard(FromSquareIndexInternal(squareIndex));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int PopFirstSquareIndex(ref Bitboard bitboard)
@@ -257,15 +234,9 @@ namespace HarinezumiChess
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-        {
-            return obj is Bitboard && Equals((Bitboard)obj);
-        }
+        public override bool Equals(object obj) => obj is Bitboard && Equals((Bitboard)obj);
 
-        public override int GetHashCode()
-        {
-            return InternalValue.GetHashCode();
-        }
+        public override int GetHashCode() => InternalValue.GetHashCode();
 
         public override string ToString()
         {
@@ -277,28 +248,17 @@ namespace HarinezumiChess
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int FindFirstSquareIndex()
-        {
-            return FindFirstSquareIndexInternal(InternalValue);
-        }
+        public int FindFirstSquareIndex() => FindFirstSquareIndexInternal(InternalValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool IsExactlyOneSquare()
-        {
-            return InternalValue != NoneValue && IsolateFirstSquareInternal(InternalValue) == InternalValue;
-        }
+            => InternalValue != NoneValue && IsolateFirstSquareInternal(InternalValue) == InternalValue;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Bitboard IsolateFirstSquare()
-        {
-            return new Bitboard(IsolateFirstSquareInternal(InternalValue));
-        }
+        public Bitboard IsolateFirstSquare() => new Bitboard(IsolateFirstSquareInternal(InternalValue));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Bitboard Shift(ShiftDirection direction)
-        {
-            return new Bitboard(ShiftInternal(InternalValue, direction));
-        }
+        public Bitboard Shift(ShiftDirection direction) => new Bitboard(ShiftInternal(InternalValue, direction));
 
         public Square[] GetSquares()
         {
@@ -346,10 +306,7 @@ namespace HarinezumiChess
         #region IEquatable<Bitboard> Members
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Bitboard other)
-        {
-            return Equals(this, other);
-        }
+        public bool Equals(Bitboard other) => Equals(this, other);
 
         #endregion
 
@@ -406,11 +363,8 @@ namespace HarinezumiChess
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static ulong IsolateFirstSquareInternal(ulong value)
-        {
-            //// ReSharper disable once ArrangeRedundantParentheses
-            return unchecked(value & (ulong)(-(long)value));
-        }
+        //// ReSharper disable once ArrangeRedundantParentheses - Improves readability in this particular case
+        internal static ulong IsolateFirstSquareInternal(ulong value) => unchecked(value & (ulong)(-(long)value));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ulong PopFirstSquareBitboardInternal(ref ulong bitboard)

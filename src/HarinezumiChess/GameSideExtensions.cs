@@ -22,22 +22,13 @@ namespace HarinezumiChess
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static GameSide Invert(this GameSide side)
-        {
-            return (GameSide)(GameSide.Black - side);
-        }
+        public static GameSide Invert(this GameSide side) => (GameSide)(GameSide.Black - side);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Piece ToPiece(this GameSide side, PieceType pieceType)
-        {
-            return pieceType.ToPiece(side);
-        }
+        public static Piece ToPiece(this GameSide side, PieceType pieceType) => pieceType.ToPiece(side);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string GetFenSnippet(this GameSide side)
-        {
-            return ChessConstants.GameSideToFenSnippetMap[side];
-        }
+        public static string GetFenSnippet(this GameSide side) => ChessConstants.GameSideToFenSnippetMap[side];
 
         #endregion
     }

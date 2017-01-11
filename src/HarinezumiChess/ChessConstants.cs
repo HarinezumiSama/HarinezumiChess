@@ -188,9 +188,7 @@ namespace HarinezumiChess
         #region Internal Methods
 
         internal static PieceType[] GetValidPromotions()
-        {
-            return new[] { PieceType.Queen, PieceType.Rook, PieceType.Bishop, PieceType.Knight };
-        }
+            => new[] { PieceType.Queen, PieceType.Rook, PieceType.Bishop, PieceType.Knight };
 
         #endregion
     }

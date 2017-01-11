@@ -197,7 +197,7 @@ namespace HarinezumiChess
             var existingPiece = this[square];
             if (existingPiece != Piece.None)
             {
-                throw new ChessPlatformException(
+                throw new HarinezumiChessException(
                     $@"The board square '{square}' is already occupied by '{existingPiece}'.");
             }
 
@@ -247,9 +247,10 @@ namespace HarinezumiChess
                 foreach (var currentPiece in ChessConstants.Pieces)
                 {
                     var isSet = (this[currentPiece] & square.Bitboard).IsAny;
+                    //// ReSharper disable once ArrangeRedundantParentheses - Improves readablity in this case
                     if ((piece == currentPiece) != isSet)
                     {
-                        throw new ChessPlatformException(
+                        throw new HarinezumiChessException(
                             $@"Bitboard inconsistency for the piece '{piece.GetName()}' at '{square}'.");
                     }
                 }
@@ -271,7 +272,7 @@ namespace HarinezumiChess
                     var intersectingSquaresString =
                         intersectionBitboard.GetSquares().Select(item => item.ToString()).Join("', '");
 
-                    throw new ChessPlatformException($@"Bitboard inconsistency at '{intersectingSquaresString}'.");
+                    throw new HarinezumiChessException($@"Bitboard inconsistency at '{intersectingSquaresString}'.");
                 }
             }
 
@@ -281,7 +282,7 @@ namespace HarinezumiChess
                 var expected = GetEntireSideBitboardNonCached(side);
                 if (actual != expected)
                 {
-                    throw new ChessPlatformException(
+                    throw new HarinezumiChessException(
                         $@"Entire-side-bitboard inconsistency: expected '{expected}', actual '{actual}'.");
                 }
             }
@@ -344,12 +345,7 @@ namespace HarinezumiChess
                 currentFile += emptySquareCount;
             }
 
-            if (currentFile != ChessConstants.FileCount)
-            {
-                return false;
-            }
-
-            return true;
+            return currentFile == ChessConstants.FileCount;
         }
 
         #endregion

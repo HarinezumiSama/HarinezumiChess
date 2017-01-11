@@ -65,7 +65,7 @@
     <Compile Include="CastlingTypeExtensions.cs" />
     <Compile Include="ChessConstants.cs" />
     <Compile Include="ChessHelper.cs" />
-    <Compile Include="ChessPlatformException.cs" />
+    <Compile Include="HarinezumiChessException.cs" />
     <Compile Include="DoublePushInfo.cs" />
     <Compile Include="EnPassantCaptureInfo.cs" />
     <Compile Include="GameMove.cs" />

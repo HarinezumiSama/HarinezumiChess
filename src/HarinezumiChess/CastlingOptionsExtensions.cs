@@ -14,7 +14,7 @@ namespace HarinezumiChess
                 return ChessConstants.NoneCastlingOptionsFenSnippet;
             }
 
-            var resultBuilder = new StringBuilder(4);
+            var resultBuilder = new StringBuilder(ChessConstants.FenRelatedCastlingOptions.Count);
 
             foreach (var option in ChessConstants.FenRelatedCastlingOptions)
             {
