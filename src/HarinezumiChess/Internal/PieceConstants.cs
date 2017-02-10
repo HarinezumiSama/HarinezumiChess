@@ -1,4 +1,4 @@
-﻿namespace HarinezumiChess
+﻿namespace HarinezumiChess.Internal
 {
     internal static class PieceConstants
     {

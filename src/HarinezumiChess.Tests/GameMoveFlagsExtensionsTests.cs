@@ -11,80 +11,80 @@ namespace HarinezumiChess.Tests
 
         [Test]
         [TestCase(GameMoveFlags.None, GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsRegularCapture, GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsKingCastling, GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.None, GameMoveFlags.IsPawnPromotion, false)]
-        [TestCase(GameMoveFlags.None, GameMoveFlags.IsRegularCapture, false)]
-        [TestCase(GameMoveFlags.None, GameMoveFlags.IsEnPassantCapture, false)]
-        [TestCase(GameMoveFlags.None, GameMoveFlags.IsKingCastling, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, GameMoveFlags.IsPawnPromotion, true)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, GameMoveFlags.IsRegularCapture, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, GameMoveFlags.IsEnPassantCapture, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, GameMoveFlags.IsKingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, GameMoveFlags.None, false)]
+        [TestCase(GameMoveFlags.RegularCapture, GameMoveFlags.None, false)]
+        [TestCase(GameMoveFlags.EnPassantCapture, GameMoveFlags.None, false)]
+        [TestCase(GameMoveFlags.KingCastling, GameMoveFlags.None, false)]
+        [TestCase(GameMoveFlags.None, GameMoveFlags.PawnPromotion, false)]
+        [TestCase(GameMoveFlags.None, GameMoveFlags.RegularCapture, false)]
+        [TestCase(GameMoveFlags.None, GameMoveFlags.EnPassantCapture, false)]
+        [TestCase(GameMoveFlags.None, GameMoveFlags.KingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, GameMoveFlags.PawnPromotion, true)]
+        [TestCase(GameMoveFlags.PawnPromotion, GameMoveFlags.RegularCapture, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, GameMoveFlags.EnPassantCapture, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, GameMoveFlags.KingCastling, false)]
         [TestCase(
-            GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture,
-            GameMoveFlags.IsPawnPromotion, true)]
+            GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture,
+            GameMoveFlags.PawnPromotion, true)]
         [TestCase(
-            GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture,
-            GameMoveFlags.IsRegularCapture, true)]
+            GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture,
+            GameMoveFlags.RegularCapture, true)]
         [TestCase(
-            GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture,
-            GameMoveFlags.IsEnPassantCapture, false)]
+            GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture,
+            GameMoveFlags.EnPassantCapture, false)]
         [TestCase(
-            GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture,
-            GameMoveFlags.IsKingCastling, false)]
+            GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture,
+            GameMoveFlags.KingCastling, false)]
         public void TestIsAnySet(GameMoveFlags value, GameMoveFlags flagsToCheck, bool expectedResult)
             => Assert.That(value.IsAnySet(flagsToCheck), Is.EqualTo(expectedResult));
 
         [Test]
         [TestCase(GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, true)]
-        [TestCase(GameMoveFlags.IsRegularCapture, false)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, false)]
-        [TestCase(GameMoveFlags.IsKingCastling, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture, true)]
+        [TestCase(GameMoveFlags.PawnPromotion, true)]
+        [TestCase(GameMoveFlags.RegularCapture, false)]
+        [TestCase(GameMoveFlags.EnPassantCapture, false)]
+        [TestCase(GameMoveFlags.KingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture, true)]
         public void TestIsPawnPromotion(GameMoveFlags value, bool expectedResult)
             => Assert.That(value.IsPawnPromotion(), Is.EqualTo(expectedResult));
 
         [Test]
         [TestCase(GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, false)]
-        [TestCase(GameMoveFlags.IsRegularCapture, true)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, false)]
-        [TestCase(GameMoveFlags.IsKingCastling, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture, true)]
+        [TestCase(GameMoveFlags.PawnPromotion, false)]
+        [TestCase(GameMoveFlags.RegularCapture, true)]
+        [TestCase(GameMoveFlags.EnPassantCapture, false)]
+        [TestCase(GameMoveFlags.KingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture, true)]
         public void TestIsRegularCapture(GameMoveFlags value, bool expectedResult)
             => Assert.That(value.IsRegularCapture(), Is.EqualTo(expectedResult));
 
         [Test]
         [TestCase(GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, false)]
-        [TestCase(GameMoveFlags.IsRegularCapture, false)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, true)]
-        [TestCase(GameMoveFlags.IsKingCastling, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, false)]
+        [TestCase(GameMoveFlags.RegularCapture, false)]
+        [TestCase(GameMoveFlags.EnPassantCapture, true)]
+        [TestCase(GameMoveFlags.KingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture, false)]
         public void TestIsEnPassantCapture(GameMoveFlags value, bool expectedResult)
             => Assert.That(value.IsEnPassantCapture(), Is.EqualTo(expectedResult));
 
         [Test]
         [TestCase(GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, false)]
-        [TestCase(GameMoveFlags.IsRegularCapture, true)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, true)]
-        [TestCase(GameMoveFlags.IsKingCastling, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture, true)]
+        [TestCase(GameMoveFlags.PawnPromotion, false)]
+        [TestCase(GameMoveFlags.RegularCapture, true)]
+        [TestCase(GameMoveFlags.EnPassantCapture, true)]
+        [TestCase(GameMoveFlags.KingCastling, false)]
+        [TestCase(GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture, true)]
         public void TestIsAnyCapture(GameMoveFlags value, bool expectedResult)
             => Assert.That(value.IsAnyCapture(), Is.EqualTo(expectedResult));
 
         [Test]
         [TestCase(GameMoveFlags.None, false)]
-        [TestCase(GameMoveFlags.IsPawnPromotion, false)]
-        [TestCase(GameMoveFlags.IsRegularCapture, false)]
-        [TestCase(GameMoveFlags.IsEnPassantCapture, false)]
-        [TestCase(GameMoveFlags.IsKingCastling, true)]
-        [TestCase(GameMoveFlags.IsPawnPromotion | GameMoveFlags.IsRegularCapture, false)]
+        [TestCase(GameMoveFlags.PawnPromotion, false)]
+        [TestCase(GameMoveFlags.RegularCapture, false)]
+        [TestCase(GameMoveFlags.EnPassantCapture, false)]
+        [TestCase(GameMoveFlags.KingCastling, true)]
+        [TestCase(GameMoveFlags.PawnPromotion | GameMoveFlags.RegularCapture, false)]
         public void TestIsKingCastling(GameMoveFlags value, bool expectedResult)
             => Assert.That(value.IsKingCastling(), Is.EqualTo(expectedResult));
 

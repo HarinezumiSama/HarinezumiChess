@@ -144,18 +144,6 @@ namespace HarinezumiChess
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Square left, Square right) => !(left == right);
 
-        [DebuggerNonUserCode]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Square? operator +(Square left, SquareShift right)
-        {
-            var file = left.File + right.FileOffset;
-            var rank = left.Rank + right.RankOffset;
-
-            return (file & ~ChessConstants.MaxFileIndex) == 0 && (rank & ~ChessConstants.MaxRankIndex) == 0
-                ? new Square(file, rank)
-                : default(Square?);
-        }
-
         #endregion
 
         #region Public Methods
@@ -265,6 +253,18 @@ namespace HarinezumiChess
         public override bool Equals(object obj) => obj is Square && Equals((Square)obj);
 
         public override int GetHashCode() => SquareIndex;
+
+        [DebuggerNonUserCode]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Square? Shift(SquareShift right)
+        {
+            var file = File + right.FileOffset;
+            var rank = Rank + right.RankOffset;
+
+            return (file & ~ChessConstants.MaxFileIndex) == 0 && (rank & ~ChessConstants.MaxRankIndex) == 0
+                ? new Square(file, rank)
+                : null;
+        }
 
         #endregion
 

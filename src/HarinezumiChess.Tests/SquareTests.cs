@@ -207,7 +207,7 @@ namespace HarinezumiChess.Tests
         {
             var square = new Square(squareIndex);
             var shift = new SquareShift(fileOffset, rankOffset);
-            var actualResult = square + shift;
+            var actualResult = square.Shift(shift);
 
             if (expectedResultSquareIndex.HasValue)
             {

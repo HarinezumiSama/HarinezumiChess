@@ -82,10 +82,10 @@
     <Compile Include="Internal\DebugConstants.cs" />
     <Compile Include="Internal\FenCharAttribute.cs" />
     <Compile Include="Internal\InternalCastlingInfo.cs" />
+    <Compile Include="Internal\PieceConstants.cs" />
     <Compile Include="Internal\SquareBridgeKey.cs" />
     <Compile Include="Internal\ZobristHashHelper.cs" />
     <Compile Include="Piece.cs" />
-    <Compile Include="PieceConstants.cs" />
     <Compile Include="PieceExtensions.cs" />
     <Compile Include="PiecePosition.cs" />
     <Compile Include="PiecePositionExtensions.cs" />

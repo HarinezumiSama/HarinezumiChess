@@ -2,11 +2,14 @@
 
 namespace HarinezumiChess
 {
+    //// TODO [vmcl] Revise DoublePushInfo and its usages
+
     public sealed class DoublePushInfo
     {
         #region Constants and Fields
 
-        private const int Difference = 2;
+        private const int CaptureRankDistance = 1;
+        private const int MoveDistance = 2;
 
         #endregion
 
@@ -14,12 +17,6 @@ namespace HarinezumiChess
 
         internal DoublePushInfo(GameSide side)
         {
-            #region Argument Check
-
-            side.EnsureDefined();
-
-            #endregion
-
             bool isWhite;
             switch (side)
             {
@@ -38,8 +35,8 @@ namespace HarinezumiChess
             Side = side;
             StartRank = isWhite ? 1 : ChessConstants.RankCount - 2;
 
-            EndRank = StartRank + (isWhite ? Difference : -Difference);
-            CaptureTargetRank = (StartRank + EndRank) / 2;
+            EndRank = StartRank + (isWhite ? MoveDistance : -MoveDistance);
+            CaptureTargetRank = StartRank + (isWhite ? CaptureRankDistance : -CaptureRankDistance);
         }
 
         #endregion

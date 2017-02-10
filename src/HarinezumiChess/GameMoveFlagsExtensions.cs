@@ -13,26 +13,26 @@ namespace HarinezumiChess
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsPawnPromotion(this GameMoveFlags value) => value.IsAnySet(GameMoveFlags.IsPawnPromotion);
+        public static bool IsPawnPromotion(this GameMoveFlags value) => value.IsAnySet(GameMoveFlags.PawnPromotion);
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsRegularCapture(this GameMoveFlags value)
-            => value.IsAnySet(GameMoveFlags.IsRegularCapture);
+            => value.IsAnySet(GameMoveFlags.RegularCapture);
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEnPassantCapture(this GameMoveFlags value)
-            => value.IsAnySet(GameMoveFlags.IsEnPassantCapture);
+            => value.IsAnySet(GameMoveFlags.EnPassantCapture);
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAnyCapture(this GameMoveFlags value)
-            => value.IsAnySet(GameMoveFlags.IsRegularCapture | GameMoveFlags.IsEnPassantCapture);
+            => value.IsAnySet(GameMoveFlags.RegularCapture | GameMoveFlags.EnPassantCapture);
 
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsKingCastling(this GameMoveFlags value) => value.IsAnySet(GameMoveFlags.IsKingCastling);
+        public static bool IsKingCastling(this GameMoveFlags value) => value.IsAnySet(GameMoveFlags.KingCastling);
 
         #endregion
     }

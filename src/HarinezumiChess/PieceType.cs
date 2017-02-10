@@ -2,7 +2,7 @@
 
 namespace HarinezumiChess
 {
-    public enum PieceType : byte
+    public enum PieceType
     {
         None = 0x00,
 

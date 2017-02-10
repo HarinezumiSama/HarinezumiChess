@@ -1,5 +1,6 @@
 ﻿namespace HarinezumiChess
 {
+    //// The values in PieceTypeMask are based on values in PieceType
     public static class PieceTypeMask
     {
         public const PieceType Sliding = (PieceType)0x04;

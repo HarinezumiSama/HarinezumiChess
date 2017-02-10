@@ -192,7 +192,7 @@ namespace HarinezumiChess
                 {
                     var enemies = PiecePosition[side.Invert()];
                     var captures = movesOnTarget & enemies;
-                    PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.IsRegularCapture);
+                    PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.RegularCapture);
                 }
 
                 if (moveTypes.IsAnySet(GeneratedMoveTypes.Quiet))
@@ -274,7 +274,7 @@ namespace HarinezumiChess
                 if (moveTypes.IsAnySet(GeneratedMoveTypes.Capture))
                 {
                     var captures = movesOnTarget & enemies;
-                    PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.IsRegularCapture);
+                    PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.RegularCapture);
                 }
 
                 if (moveTypes.IsAnySet(GeneratedMoveTypes.Quiet))
@@ -327,7 +327,7 @@ namespace HarinezumiChess
                         resultMoves,
                         promotionPushes,
                         (int)forwardDirection,
-                        GameMoveFlags.IsPawnPromotion);
+                        GameMoveFlags.PawnPromotion);
                 }
 
                 if (pushes.IsAny)
@@ -372,7 +372,7 @@ namespace HarinezumiChess
         }
 
         protected void GeneratePotentialQueenMoves(
-            [NotNull] List<GameMoveData> resultMoves,
+            [NotNull] ICollection<GameMoveData> resultMoves,
             GameSide side,
             GeneratedMoveTypes moveTypes)
         {
@@ -389,7 +389,7 @@ namespace HarinezumiChess
         }
 
         protected void GeneratePotentialRookMoves(
-            [NotNull] List<GameMoveData> resultMoves,
+            [NotNull] ICollection<GameMoveData> resultMoves,
             GameSide side,
             GeneratedMoveTypes moveTypes)
         {
@@ -406,7 +406,7 @@ namespace HarinezumiChess
         }
 
         protected void GeneratePotentialBishopMoves(
-            [NotNull] List<GameMoveData> resultMoves,
+            [NotNull] ICollection<GameMoveData> resultMoves,
             GameSide side,
             GeneratedMoveTypes moveTypes)
         {
@@ -492,8 +492,7 @@ namespace HarinezumiChess
             for (var squareIndex = 0; squareIndex < ChessConstants.SquareCount; squareIndex++)
             {
                 var square = new Square(squareIndex);
-                var moveSquares = ChessHelper.GetKnightMoveSquares(square);
-                var bitboard = new Bitboard(moveSquares);
+                var bitboard = ChessHelper.GetKnightMoveSquares(square);
                 result[squareIndex] = bitboard;
             }
 
@@ -636,7 +635,7 @@ namespace HarinezumiChess
             int moveOffset,
             GameMoveFlags moveFlags)
         {
-            var isPawnPromotion = (moveFlags & GameMoveFlags.IsPawnPromotion) != 0;
+            var isPawnPromotion = (moveFlags & GameMoveFlags.PawnPromotion) != 0;
 
             while (destinationsBitboard.IsAny)
             {
@@ -676,7 +675,7 @@ namespace HarinezumiChess
                 resultMoves,
                 enPassantCapture,
                 (int)captureDirection,
-                GameMoveFlags.IsEnPassantCapture);
+                GameMoveFlags.EnPassantCapture);
 
             var captures = captureTargets & enemies;
             if (captures.IsNone)
@@ -689,14 +688,14 @@ namespace HarinezumiChess
                 resultMoves,
                 nonPromotionCaptures,
                 (int)captureDirection,
-                GameMoveFlags.IsRegularCapture);
+                GameMoveFlags.RegularCapture);
 
             var promotionCaptures = captures & rank8;
             PopulatePawnMoves(
                 resultMoves,
                 promotionCaptures,
                 (int)captureDirection,
-                GameMoveFlags.IsRegularCapture | GameMoveFlags.IsPawnPromotion);
+                GameMoveFlags.RegularCapture | GameMoveFlags.PawnPromotion);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -721,7 +720,7 @@ namespace HarinezumiChess
                 return;
             }
 
-            var moveData = new GameMoveData(info.KingMove, GameMoveFlags.IsKingCastling);
+            var moveData = new GameMoveData(info.KingMove, GameMoveFlags.KingCastling);
             resultMoves.Add(moveData);
         }
 
@@ -867,7 +866,7 @@ namespace HarinezumiChess
                             {
                                 var move = new GameMove(sourceSquare, current.GetFirstSquare());
                                 resultMoves.Add(
-                                    new GameMoveData(move, GameMoveFlags.IsRegularCapture));
+                                    new GameMoveData(move, GameMoveFlags.RegularCapture));
                             }
                         }
 

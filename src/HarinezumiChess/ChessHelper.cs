@@ -128,11 +128,8 @@ namespace HarinezumiChess
 
         private const string FenRankRegexSnippet = @"[1-8KkQqRrBbNnPp]{1,8}";
 
-        private static readonly Omnifactotum.ReadOnlyDictionary<Square, Square[]>
-            KnightMoveSquareMap =
-                AllSquares
-                    .ToDictionary(Factotum.Identity, GetKnightMoveSquaresNonCached)
-                    .AsReadOnly();
+        private static readonly Omnifactotum.ReadOnlyDictionary<Square, Bitboard> KnightMoveSquareMap =
+            AllSquares.ToDictionary(Factotum.Identity, GetKnightMoveSquaresNonCached).AsReadOnly();
 
         private static readonly Regex ValidFenRegex = new Regex(
             string.Format(
@@ -151,7 +148,7 @@ namespace HarinezumiChess
 
         public static bool IsValidFenFormat(string fen) => !fen.IsNullOrEmpty() && ValidFenRegex.IsMatch(fen);
 
-        public static Square[] GetOnboardSquares(Square square, IEnumerable<SquareShift> shifts)
+        public static Bitboard GetOnboardSquares(Square square, IEnumerable<SquareShift> shifts)
         {
             #region Argument Check
 
@@ -162,14 +159,14 @@ namespace HarinezumiChess
 
             #endregion
 
-            return shifts.Select(shift => square + shift).Where(p => p.HasValue).Select(p => p.Value).ToArray();
+            return new Bitboard(shifts.Select(square.Shift).Where(p => p.HasValue).Select(p => p.Value));
         }
 
         #endregion
 
         #region Internal Methods
 
-        internal static Square[] GetKnightMoveSquares(Square square) => KnightMoveSquareMap[square];
+        internal static Bitboard GetKnightMoveSquares(Square square) => KnightMoveSquareMap[square];
 
         internal static bool TryParseInt(string value, out int result)
             => int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result);
@@ -208,7 +205,7 @@ namespace HarinezumiChess
 
         #region Private Methods
 
-        private static Square[] GetKnightMoveSquaresNonCached(Square square)
+        private static Bitboard GetKnightMoveSquaresNonCached(Square square)
             => GetOnboardSquares(square, KnightAttackOrMoveOffsets);
 
         private static Square[] GetMoveSquareArraysByRays(
@@ -221,9 +218,9 @@ namespace HarinezumiChess
             foreach (var ray in rays)
             {
                 var distance = 1;
-                for (var square = sourceSquare + ray;
+                for (var square = sourceSquare.Shift(ray);
                     square.HasValue && distance <= maxDistance;
-                    square = square.Value + ray, distance++)
+                    square = square.Value.Shift(ray), distance++)
                 {
                     resultList.Add(square.Value);
                 }
