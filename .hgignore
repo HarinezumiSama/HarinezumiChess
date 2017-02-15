@@ -1,5 +1,6 @@
 glob:bin/*
 glob:bin.tests/*
+glob:tools/*
 glob:obj/*
 glob:*/bin/*
 glob:*/bin.tests/*
