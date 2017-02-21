@@ -263,7 +263,7 @@ namespace HarinezumiChess
 
             return (file & ~ChessConstants.MaxFileIndex) == 0 && (rank & ~ChessConstants.MaxRankIndex) == 0
                 ? new Square(file, rank)
-                : null;
+                : default(Square?);
         }
 
         #endregion
