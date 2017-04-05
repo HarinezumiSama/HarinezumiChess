@@ -5,6 +5,14 @@ setlocal
 set TAG=%~n0
 set DEFAULT_CFG=Debug
 
+verify invalid params >nul
+setlocal enableextensions enabledelayedexpansion
+if errorlevel 1 (
+    @echo.
+    @echo * ERROR: Unable to turn on Command Shell extensions.
+    exit /b 127
+)
+
 if "%~1" equ "/?" goto HELP
 if "%~1" equ "-?" goto HELP
 if "%~2" neq "" goto HELP
@@ -24,7 +32,7 @@ call :CLEAN_DIR "%NUNIT_DIR%" || goto ERROR
 
 echo.
 echo [%TAG%] NuGet: Installing '%NUNIT_PKG%' version %NUNIT_PKG_VER%...
-nuget install "%NUNIT_PKG%" -Version %NUNIT_PKG_VER% -ExcludeVersion -OutputDirectory "%TOOLS_DIR%" -Verbosity detailed -NonInteractive -NoCache || goto ERROR
+nuget.exe install "%NUNIT_PKG%" -Version %NUNIT_PKG_VER% -ExcludeVersion -OutputDirectory "%TOOLS_DIR%" -Verbosity detailed -NonInteractive -NoCache || goto ERROR
 echo [%TAG%] NuGet: Installing '%NUNIT_PKG%' version %NUNIT_PKG_VER% - DONE.
 
 echo.
@@ -41,6 +49,8 @@ echo.
 echo *** ERROR has occurred ***
 exit /b 1
 
+:: ------------------------------------------------------------------------------------------------------------------------
+
 :CLEAN_DIR
 echo.
 echo [%TAG%] Cleaning directory "%~1"...
@@ -49,6 +59,8 @@ if exist "%~1" (
 )
 echo [%TAG%] Cleaning directory "%~1" - DONE.
 goto :EOF
+
+:: ------------------------------------------------------------------------------------------------------------------------
 
 :HELP
 echo.
