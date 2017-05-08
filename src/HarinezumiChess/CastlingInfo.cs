@@ -19,11 +19,6 @@ namespace HarinezumiChess
 
             castlingType.EnsureDefined();
 
-            if (emptySquares == null)
-            {
-                throw new ArgumentNullException(nameof(emptySquares));
-            }
-
             if (kingMove.From.Rank != kingMove.To.Rank
                 || Math.Abs(kingMove.From.SquareIndex - kingMove.To.SquareIndex) != 2)
             {
@@ -39,7 +34,7 @@ namespace HarinezumiChess
             Option = castlingType.ToOption();
             KingMove = kingMove;
             RookMove = rookMove;
-            EmptySquares = emptySquares.AsReadOnly();
+            EmptySquares = (emptySquares ?? throw new ArgumentNullException(nameof(emptySquares))).AsReadOnly();
             PassedSquare = new Square((kingMove.From.SquareIndex + kingMove.To.SquareIndex) / 2);
             GameSide = Option.IsAnySet(CastlingOptions.WhiteMask) ? GameSide.White : GameSide.Black;
         }

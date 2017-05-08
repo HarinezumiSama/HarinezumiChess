@@ -53,22 +53,15 @@ namespace HarinezumiChess
 
         protected GamePosition([NotNull] PiecePosition piecePosition, GameSide activeSide, int fullMoveIndex)
         {
-            if (piecePosition == null)
-            {
-                throw new ArgumentNullException(nameof(piecePosition));
-            }
+            PiecePosition = piecePosition ?? throw new ArgumentNullException(nameof(piecePosition));
+            ActiveSide = activeSide;
 
-            if (fullMoveIndex <= 0)
-            {
-                throw new ArgumentOutOfRangeException(
+            FullMoveIndex = fullMoveIndex > 0
+                ? fullMoveIndex
+                : throw new ArgumentOutOfRangeException(
                     nameof(fullMoveIndex),
                     fullMoveIndex,
                     @"The value must be positive.");
-            }
-
-            PiecePosition = piecePosition;
-            ActiveSide = activeSide;
-            FullMoveIndex = fullMoveIndex;
         }
 
         protected GamePosition([NotNull] GamePosition other)
@@ -195,6 +188,7 @@ namespace HarinezumiChess
                     PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.RegularCapture);
                 }
 
+                //// ReSharper disable once InvertIf - Other IF statements are pending
                 if (moveTypes.IsAnySet(GeneratedMoveTypes.Quiet))
                 {
                     var emptySquares = PiecePosition[Piece.None];
@@ -277,6 +271,7 @@ namespace HarinezumiChess
                     PopulateSimpleMoves(resultMoves, sourceSquare, captures, GameMoveFlags.RegularCapture);
                 }
 
+                //// ReSharper disable once InvertIf - Does not improve readability in this case
                 if (moveTypes.IsAnySet(GeneratedMoveTypes.Quiet))
                 {
                     var nonCaptures = movesOnTarget & emptySquares;
@@ -342,6 +337,7 @@ namespace HarinezumiChess
                 }
             }
 
+            //// ReSharper disable once InvertIf - Keeping identical IF statements structure
             if (moveTypes.IsAnySet(GeneratedMoveTypes.Capture))
             {
                 var enemies = PiecePosition[side.Invert()];

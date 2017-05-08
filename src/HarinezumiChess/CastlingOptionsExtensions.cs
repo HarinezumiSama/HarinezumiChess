@@ -18,6 +18,7 @@ namespace HarinezumiChess
 
             foreach (var option in ChessConstants.FenRelatedCastlingOptions)
             {
+                //// ReSharper disable once InvertIf - Does not improve readability in this case
                 if (castlingOptions.IsAnySet(option))
                 {
                     var fenChar = ChessConstants.CastlingOptionToFenCharMap[option];

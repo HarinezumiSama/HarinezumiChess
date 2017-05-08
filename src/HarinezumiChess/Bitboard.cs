@@ -113,16 +113,12 @@ namespace HarinezumiChess
         {
             #region Argument Check
 
-            if (squares == null)
-            {
-                throw new ArgumentNullException(nameof(squares));
-            }
-
             #endregion
 
-            InternalValue = squares.Aggregate(
+            InternalValue = squares?.Aggregate(
                 NoneValue,
-                (accumulator, square) => accumulator | square.Bitboard.InternalValue);
+                (accumulator, square) => accumulator | square.Bitboard.InternalValue)
+                ?? throw new ArgumentNullException(nameof(squares));
         }
 
         /// <summary>
